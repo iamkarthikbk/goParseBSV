@@ -31,23 +31,23 @@ func ParsePattern (lexer *Lexer) (AST) {
 		if TokenIsSpecificPunctuation (lexer, "*") {
 			astIde := AstIde { LeafValue: lexer.Token }
 			GetToken (lexer)
-			result = & AstPatternVarIde { varIde: & astIde }
+			result = & AstPatternVarIde { VarIde: & astIde }
 		} else {
 			ast := ParseVarIde (lexer)
-			result = & AstPatternVarIde { varIde: ast }
+			result = & AstPatternVarIde { VarIde: ast }
 		}
 
 	} else if lexer.Token.TokType == TokInteger {
 		// Integer contant pattern
 		ast := AstNum {lexer.Token}
 		GetToken (lexer)
-		result = & AstPatternConst { constant: & ast }
+		result = & AstPatternConst { Constant: & ast }
 
 	} else if lexer.Token.TokType == TokString {
 		// String contant pattern
 		ast := AstString {lexer.Token}
 		GetToken (lexer)
-		result = & AstPatternConst { constant: & ast }
+		result = & AstPatternConst { Constant: & ast }
 
 	} else if TokenIsKeyword (lexer, "tagged") {
 		// Tagged union or struct pattern
@@ -70,7 +70,7 @@ func ParsePattern (lexer *Lexer) (AST) {
 		// Ide contant pattern (enum label)
 		ast := AstIde {LeafValue: lexer.Token}
 		GetToken (lexer)
-		result = & AstPatternConst { constant: & ast }
+		result = & AstPatternConst { Constant: & ast }
 
 	} else {
 		raiseParseError (lexer, "Expecting a pattern")

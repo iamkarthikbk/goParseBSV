@@ -354,8 +354,14 @@ func ParseExprPrimary (lexer *Lexer) (AST) {
 		GetToken (lexer)
 		var ast AstTaggedUnionExpr
 		ast.Name = ParseConstIde (lexer)
-		// TODO: the following should check for any token that can't begin an Expr
-		if ! TokenIsSpecificPunctuation (lexer, ";") {
+		// A nullary constructor (tagged Invalid) has no payload: only parse one if
+		// the next token can begin an expression.
+		if ! (TokenIsSpecificPunctuation (lexer, ";") ||
+		      TokenIsSpecificPunctuation (lexer, ")") ||
+		      TokenIsSpecificPunctuation (lexer, ",") ||
+		      TokenIsSpecificPunctuation (lexer, "}") ||
+		      TokenIsSpecificPunctuation (lexer, "]") ||
+		      TokenIsSpecificPunctuation (lexer, ":")) {
 			ast.Expr = ParseExpr (lexer)
 		}
 		result = & ast

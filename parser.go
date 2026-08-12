@@ -537,6 +537,8 @@ func ParseInstance (lexer *Lexer) (AST) {
 
 var pp bool = false
 
+var emitJson bool = false
+
 func printUsage () () {
 	fmt.Fprintf (os.Stdout, "Usage:\n")
 	fmt.Fprintf (os.Stdout, "    %s  <optional macro-defs and flags>  filename\n", os.Args [0])
@@ -544,6 +546,7 @@ func printUsage () () {
 	fmt.Fprintf (os.Stdout, "Macro-def: -Dmacro    For `ifdefs in the source file\n")
 	fmt.Fprintf (os.Stdout, "Flag:      -debug     Print a verbose trace of the recursive descent parse\n")
 	fmt.Fprintf (os.Stdout, "Flag:      -pp        Pretty-print the final AST for the file\n")
+	fmt.Fprintf (os.Stdout, "Flag:      -json      Print the final AST as JSON\n")
 }
 
 // ParseCommandLine parses a command line: sequence of -DFOO defs and a filename.
@@ -564,6 +567,9 @@ func ParseCommandLine () ([]string, string) {
 
 		} else if arg == "-pp" {
 			pp = true
+
+		} else if arg == "-json" {
+			emitJson = true
 
 		} else if inputFilename == "-" {
 			inputFilename = arg
@@ -598,8 +604,10 @@ func TestParser () () {
 	// Parse the file
 	ast := ParsePackage (lexer)
 
-	// Pretty-print the AST
-	if pp {
+	// Emit the AST
+	if emitJson {
+		AST_json (os.Stdout, ast)
+	} else if pp {
 		AST_pp (os.Stdout, "", ast)
 	} else {
 		fmt.Fprintf (os.Stdout, "Ok\n")

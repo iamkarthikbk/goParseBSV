@@ -715,12 +715,12 @@ func (ast *AstFSMcontinue) pp (fout *os.File, indent string) () {
 // AstPatternVarIde is the parse of a pattern .* or .x
 func (ast *AstPatternVarIde) pp (fout *os.File, indent string) () {
 	fmt.Fprintf (fout, ".")
-	conv (ast.varIde).pp (fout, indent)
+	conv (ast.VarIde).pp (fout, indent)
 }
 
 // AstPatternConst is the parse of a pattern const integer, real, string, or Enum label
 func (ast *AstPatternConst) pp (fout *os.File, indent string) () {
-	conv (ast.constant).pp (fout, indent)
+	conv (ast.Constant).pp (fout, indent)
 }
 
 // AstStructPattern is the parse of:  tagged StructName { MemberName: Pattern, ..., }

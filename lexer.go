@@ -104,7 +104,7 @@ func NewLexer (inputFilename string, macros []string, ftrace *os.File) (*Lexer) 
 			fmt.Fprintf (os.Stderr, "%v\n", err)
 			os.Exit (1)
 		}
-		fmt.Fprintf (os.Stdout, "Taking input from file %q\n", inputFilename)
+		fmt.Fprintf (os.Stderr, "Taking input from file %q\n", inputFilename)
 	}
 
 	var lexer = new (Lexer)

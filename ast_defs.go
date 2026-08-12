@@ -376,12 +376,12 @@ type AstFSMcontinue struct {
 
 // AstPatternVarIde is the parse of a pattern .* or .x
 type AstPatternVarIde struct {
-	varIde AST
+	VarIde AST
 }
 
 // AstPatternConst is the parse of a pattern const integer, real, string, or Enum label
 type AstPatternConst struct {
-	constant AST
+	Constant AST
 }
 
 // AstStructPattern is the parse of:  tagged StructName { MemberName: Pattern, ..., }
